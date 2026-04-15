@@ -1,5 +1,58 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
+  // ── Docs hub (new IA entry) ───────────────────────────────────────────────
+  mainSidebar: [
+    { type: 'doc', id: 'index', label: 'Docs home' },
+    {
+      type: 'category',
+      label: 'Products',
+      collapsed: false,
+      items: [
+        'products/index',
+        'products/design-automation/index',
+        'products/viewer/index',
+        'products/webhooks/index',
+        'products/metrics/index',
+        'products/machine-translation/index',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Solutions',
+      collapsed: false,
+      items: [
+        'solutions/index',
+        'solutions/automated-submittals/index',
+        'solutions/multilingual-docs/index',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'SDKs & Samples',
+      collapsed: false,
+      items: [
+        'sdks/index',
+        'sdks/design-automation/index',
+        'sdks/viewer/index',
+        'sdks/webhooks/index',
+        'sdks/metrics/index',
+        'sdks/machine-translation/index',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Releases',
+      collapsed: false,
+      items: [
+        'releases/index',
+        'releases/design-automation/index',
+        'releases/viewer/index',
+        'releases/webhooks/index',
+        'releases/metrics/index',
+        'releases/machine-translation/index',
+      ],
+    },
+  ],
 
   // ── Design Automation API ────────────────────────────────────────────────
   designAutomationSidebar: [

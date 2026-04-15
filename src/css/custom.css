@@ -2,31 +2,35 @@
    Autodesk APS – Design Docs custom theme
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Weave typography: prefer Autodesk proprietary Artifakt (Element). */
 
 /* ---------- Design tokens (light mode) ---------- */
 :root {
-  --ifm-color-primary:         #0696d7;
-  --ifm-color-primary-dark:    #0582bf;
-  --ifm-color-primary-darker:  #0471a6;
-  --ifm-color-primary-darkest: #035a87;
-  --ifm-color-primary-light:   #18a7e8;
-  --ifm-color-primary-lighter: #35b4ed;
-  --ifm-color-primary-lightest:#6ecbf3;
+  --ifm-color-primary:         #006eaf;
+  --ifm-color-primary-dark:    #005f99;
+  --ifm-color-primary-darker:  #005387;
+  --ifm-color-primary-darkest: #00456f;
+  --ifm-color-primary-light:   #0a84c9;
+  --ifm-color-primary-lighter: #2196d4;
+  --ifm-color-primary-lightest:#54b5e6;
 
-  --aps-black:   #050505;
-  --aps-ink:     #111827;
-  --aps-body:    #374151;
-  --aps-muted:   #6b7280;
-  --aps-subtle:  #9ca3af;
-  --aps-border:  #e5e7eb;
-  --aps-surface: #f9fafb;
+  /* Weave-aligned neutrals (charcoal/surfaces) */
+  /* Navbar brand black (match logo background for seamless blend) */
+  --aps-black:   #000000;
+  --aps-ink:     #3c3c3c; /* generic.color.charcoal.900.100 */
+  --aps-body:    #4d4d4d; /* generic.color.charcoal.800.100 */
+  --aps-muted:   #666666; /* generic.color.charcoal.700.100 */
+  --aps-subtle:  #808080; /* generic.color.charcoal.600.100 */
+  --aps-border:  rgba(60, 60, 60, 0.10); /* generic.color.charcoal.900.10 */
+  --aps-surface: #f5f5f5; /* semantic.background-color.surface.200 */
   --aps-white:   #ffffff;
 
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
-  --ifm-font-size-base: 15px;
-  --ifm-line-height-base: 1.75;
+  /* Weave: Artifakt Element is the default product font */
+  --ifm-font-family-base: 'ArtifaktElement', 'Artifakt Element', 'Artifakt', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'Courier', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --ifm-font-size-base: 14px;
+  --ifm-line-height-base: 1.55;
 
   --ifm-navbar-background-color: var(--aps-black);
   --ifm-navbar-link-color: rgba(255,255,255,0.82);
@@ -41,7 +45,7 @@
 
   --ifm-code-font-size: 0.875em;
   --ifm-code-border-radius: 4px;
-  --docusaurus-highlighted-code-line-bg: rgba(6,150,215,0.08);
+  --docusaurus-highlighted-code-line-bg: rgba(0,110,175,0.09);
 
   --ifm-toc-border-color: var(--aps-border);
   --ifm-sidebar-width: 280px;
@@ -52,8 +56,8 @@
 
 /* ---------- Dark mode ---------- */
 [data-theme='dark'] {
-  --ifm-color-primary:         #18a7e8;
-  --ifm-color-primary-dark:    #0696d7;
+  --ifm-color-primary:         #39a7e3;
+  --ifm-color-primary-dark:    #1f95d8;
   --aps-ink:     rgba(255,255,255,0.93);
   --aps-body:    rgba(255,255,255,0.75);
   --aps-muted:   rgba(255,255,255,0.52);
@@ -61,9 +65,9 @@
   --aps-border:  rgba(255,255,255,0.1);
   --aps-surface: rgba(255,255,255,0.04);
   --aps-white:   #1a1a1c;
-  --ifm-background-color: #111111;
-  --ifm-background-surface-color: #1a1a1c;
-  --docusaurus-highlighted-code-line-bg: rgba(24,167,232,0.12);
+  --ifm-background-color: #0b0f14;
+  --ifm-background-surface-color: #121820;
+  --docusaurus-highlighted-code-line-bg: rgba(57,167,227,0.14);
 }
 
 /* ============================================================
@@ -83,7 +87,11 @@ body {
   box-shadow: var(--ifm-navbar-shadow);
   padding: 0 1.5rem;
 }
-.navbar__logo img { height: 26px; width: auto; }
+.navbar__logo img {
+  height: 26px;
+  width: auto;
+  opacity: 1;
+}
 .navbar__link {
   font-size: 0.875rem;
   font-weight: 500;
@@ -643,6 +651,228 @@ article.theme-doc-markdown {
   margin: 0;
   max-width: 520px;
   line-height: 1.65;
+}
+
+/* ============================================================
+   Platform landing layout (homepage)
+   ============================================================ */
+.aps-landing {
+  width: min(90vw, 1480px);
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+.aps-landing__main {
+  padding: 1.25rem 0 3rem;
+}
+
+.aps-filterbar {
+  border: 1px solid var(--aps-border);
+  border-radius: 14px;
+  background: var(--aps-white);
+  padding: 1rem;
+  margin: 1.25rem 0 1.25rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+}
+[data-theme='dark'] .aps-filterbar {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+}
+.aps-filterbar__row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+.aps-filterbar__row:last-child { margin-bottom: 0; }
+.aps-filterbar__search { flex: 1; min-width: 260px; }
+.aps-filterbar__actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.aps-filterbar__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 240px;
+  flex: 1;
+}
+.aps-filterbar__label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--aps-body);
+}
+[data-theme='dark'] .aps-filterbar__label {
+  color: rgba(255,255,255,0.65);
+}
+
+/* Give the main tile grid more room on landing pages */
+.aps-grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* ============================================================
+   APS-inspired landing sections (Explore)
+   ============================================================ */
+.aps-hero {
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--aps-border);
+  margin-bottom: 1.5rem;
+  background:
+    radial-gradient(900px 280px at 8% 0%, rgba(0,110,175,0.16), rgba(0,110,175,0) 55%),
+    radial-gradient(700px 260px at 65% 10%, rgba(0,110,175,0.10), rgba(0,110,175,0) 60%);
+  border-radius: 18px;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+.aps-hero__kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--aps-subtle);
+  margin-bottom: 0.65rem;
+}
+.aps-hero__title {
+  font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--aps-ink);
+  margin: 0 0 0.9rem;
+}
+.aps-hero__desc {
+  font-size: 1rem;
+  max-width: 64ch;
+  color: var(--aps-muted);
+  line-height: 1.7;
+  margin: 0 0 1.25rem;
+}
+.aps-hero__ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.aps-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0.55rem 0.95rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid var(--aps-border);
+  background: var(--aps-white);
+  color: var(--aps-ink);
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.aps-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border-color: rgba(6,150,215,0.35);
+  text-decoration: none;
+  color: var(--aps-ink);
+}
+.aps-btn--primary {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: #ffffff;
+}
+.aps-btn--primary:hover {
+  background: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+  color: #ffffff;
+}
+
+.aps-section { padding: 1.25rem 0; }
+.aps-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+.aps-section__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--aps-ink);
+  margin: 0;
+}
+.aps-section__desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--aps-muted);
+}
+.aps-miniGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.9rem;
+}
+.aps-miniCard {
+  border: 1px solid var(--aps-border);
+  border-radius: 12px;
+  padding: 1rem;
+  background: var(--aps-white);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+.aps-miniCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  border-color: rgba(6,150,215,0.35);
+  text-decoration: none;
+}
+.aps-miniCard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+.aps-miniCard__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--aps-ink);
+  margin-bottom: 0.35rem;
+}
+.aps-miniCard__desc {
+  font-size: 0.82rem;
+  color: var(--aps-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+.aps-mutedNote {
+  font-size: 0.85rem;
+  color: var(--aps-muted);
+  padding: 0.75rem 0;
+}
+
+[data-theme='dark'] .aps-btn {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.9);
+}
+[data-theme='dark'] .aps-btn:hover {
+  box-shadow: 0 8px 26px rgba(0,0,0,0.35);
+  border-color: rgba(24,167,232,0.45);
+  color: rgba(255,255,255,0.95);
+}
+[data-theme='dark'] .aps-miniCard {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.1);
+}
+[data-theme='dark'] .aps-miniCard:hover {
+  box-shadow: 0 10px 28px rgba(0,0,0,0.42);
+  border-color: rgba(24,167,232,0.45);
 }
 
 .aps-empty {

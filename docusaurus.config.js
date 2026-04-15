@@ -37,12 +37,14 @@ function webpackBarPatch() {
   };
 }
 
+const baseUrl = process.env.DOCUSAURUS_BASE_URL || '/WhatIf/';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Autodesk',
   tagline: 'Documentation System POC',
   url: 'https://ambernegi.github.io',
-  baseUrl: '/WhatIf/',
+  baseUrl,
   favicon: 'img/favicon.ico',
   organizationName: 'ambernegi', // GitHub org/user name.
   projectName: 'WhatIf', // GitHub repo name.
@@ -62,11 +64,16 @@ const config = {
       logo: {
         alt: 'Autodesk Platform Services',
         src: 'images/apslogo.png',
-        href: '/',
+        href: baseUrl,
       },
       items: [
+        { to: '/', label: 'Explore', position: 'left' },
+        { to: '/docs', label: 'Docs', position: 'left' },
+        { to: '/docs/releases', label: 'Releases', position: 'left' },
+        { to: '/docs/sdks', label: 'SDKs & Samples', position: 'left' },
+        { href: 'https://github.com/ambernegi/WhatIf', label: 'App Store', position: 'left' },
         {
-          href: 'https://github.com/ambernegi/Design',
+          href: 'https://github.com/ambernegi/WhatIf',
           label: 'GitHub',
           position: 'right',
         },
@@ -88,7 +95,7 @@ const config = {
           title: 'Resources',
           items: [
             { label: 'APS Portal', href: 'https://aps.autodesk.com' },
-            { label: 'GitHub', href: 'https://github.com/ambernegi/Design' },
+            { label: 'GitHub', href: 'https://github.com/ambernegi/WhatIf' },
           ],
         },
       ],
@@ -101,7 +108,16 @@ const config = {
     },
   },
 
-  plugins: [webpackBarPatch],
+  plugins: [
+    webpackBarPatch,
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        // Keep legacy and new hubs stable; add migrations here as we reorganize folders.
+        redirects: [],
+      },
+    ],
+  ],
 
   presets: [
     [
