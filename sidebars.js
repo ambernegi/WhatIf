@@ -28,6 +28,14 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'APIs',
+      collapsed: false,
+      items: [
+        'apis/index',
+      ],
+    },
+    {
+      type: 'category',
       label: 'SDKs & Samples',
       collapsed: false,
       items: [

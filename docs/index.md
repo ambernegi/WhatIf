@@ -7,6 +7,7 @@ Start here:
 
 - [Products](./products)
 - [Solutions](./solutions)
+- [APIs](./apis)
 - [SDKs & Samples](./sdks)
 - [Releases](./releases)
 

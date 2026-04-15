@@ -69,6 +69,7 @@ const config = {
       items: [
         { to: '/', label: 'Explore', position: 'left' },
         { to: '/docs', label: 'Docs', position: 'left' },
+        { to: '/docs/apis', label: 'APIs', position: 'left' },
         { to: '/docs/releases', label: 'Releases', position: 'left' },
         { to: '/docs/sdks', label: 'SDKs & Samples', position: 'left' },
         { href: 'https://github.com/ambernegi/WhatIf', label: 'App Store', position: 'left' },
