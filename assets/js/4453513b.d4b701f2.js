@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdesign_docs_poc=self.webpackChunkdesign_docs_poc||[]).push([[30],{5362(e){e.exports=JSON.parse('{"tags":[{"label":"reference","permalink":"/WhatIf/docs/tags/reference","count":1},{"label":"authentication","permalink":"/WhatIf/docs/tags/authentication","count":1},{"label":"oauth","permalink":"/WhatIf/docs/tags/oauth","count":1}]}')}}]);
