@@ -130,138 +130,142 @@ export default function Home() {
       <div className="aps-landing">
         <main className="aps-landing__main">
           <section className="aps-hero">
-            <div className="aps-hero__kicker">Autodesk Platform Services</div>
-            <h1 className="aps-hero__title">Explore products and solution journeys.</h1>
-            <p className="aps-hero__desc">
-              Browse by industry and capability, then dive into docs, SDKs & samples, and releases.
-            </p>
-            <div className="aps-hero__ctaRow">
-              <Link className="aps-btn aps-btn--primary" to="/docs">
-                Get started
-              </Link>
-              <Link className="aps-btn" to="/docs/releases">
-                See newest releases
-              </Link>
-            </div>
-          </section>
-
-          <section className="aps-filterbar">
-            <div className="aps-filterbar__row">
-              <div className="aps-filterbar__search">
-                <div className="aps-search-wrap">
-                  <svg className="aps-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                  <input
-                    className="aps-search"
-                    type="search"
-                    placeholder="Search products and solutions…"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    aria-label="Search"
-                  />
-                </div>
-              </div>
-
-              <div className="aps-filterbar__actions">
-                <div className="aps-pills">
-                  <button
-                    type="button"
-                    className={tab === 'products' ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                    onClick={() => setTab('products')}
-                  >
-                    Products
-                  </button>
-                  <button
-                    type="button"
-                    className={tab === 'solutions' ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                    onClick={() => setTab('solutions')}
-                  >
-                    Solutions
-                  </button>
-                </div>
-                {hasFilters && (
-                  <button type="button" className="aps-clear-btn" onClick={clearFilters}>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                      <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    </svg>
-                    Clear
-                  </button>
-                )}
+            <div className="aps-hero__left">
+              <div className="aps-hero__kicker">Autodesk Platform Services</div>
+              <h1 className="aps-hero__title">Explore products and solution journeys.</h1>
+              <p className="aps-hero__desc">
+                Browse by industry and capability, then dive into docs, SDKs & samples, and releases.
+              </p>
+              <div className="aps-hero__ctaRow">
+                <Link className="aps-btn aps-btn--primary" to="/docs">
+                  Get started
+                </Link>
+                <Link className="aps-btn" to="/docs/releases">
+                  See newest releases
+                </Link>
               </div>
             </div>
 
-            <div className="aps-filterbar__row">
-              <div className="aps-filterbar__group">
-                <span className="aps-filterbar__label">Pricing</span>
-                <div className="aps-pills">
-                  {(['all', 'free', 'monetized', 'mixed'] as PricingFilter[]).map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      className={pricing === p ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                      onClick={() => setPricing(p)}
-                    >
-                      {p === 'all' ? 'All' : p === 'free' ? 'Free' : p === 'mixed' ? 'Mixed' : (
-                        <span className="aps-pill-dollar-wrap">
-                          Monetized <span className="aps-dollar" title="Usage costs may apply">$</span>
-                        </span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            <div className="aps-hero__right">
+              <section className="aps-filterbar">
+                <div className="aps-filterbar__row">
+                  <div className="aps-filterbar__search">
+                    <div className="aps-search-wrap">
+                      <svg className="aps-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" strokeWidth="1.5" />
+                        <path d="M10.5 10.5L14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                      <input
+                        className="aps-search"
+                        type="search"
+                        placeholder="Search products and solutions…"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        aria-label="Search"
+                      />
+                    </div>
+                  </div>
 
-              <div className="aps-filterbar__group">
-                <span className="aps-filterbar__label">Maturity</span>
-                <div className="aps-pills">
-                  {(['all', 'ga', 'beta', 'alpha'] as MaturityFilter[]).map((m) => (
-                    <button
-                      key={m}
-                      type="button"
-                      className={maturity === m ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                      onClick={() => setMaturity(m)}
-                    >
-                      {m === 'all' ? 'All' : m.toUpperCase()}
-                    </button>
-                  ))}
+                  <div className="aps-filterbar__actions">
+                    <div className="aps-pills">
+                      <button
+                        type="button"
+                        className={tab === 'products' ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                        onClick={() => setTab('products')}
+                      >
+                        Products
+                      </button>
+                      <button
+                        type="button"
+                        className={tab === 'solutions' ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                        onClick={() => setTab('solutions')}
+                      >
+                        Solutions
+                      </button>
+                    </div>
+                    {hasFilters && (
+                      <button type="button" className="aps-clear-btn" onClick={clearFilters}>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                          <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                        Clear
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="aps-filterbar__row">
-              <div className="aps-filterbar__group">
-                <span className="aps-filterbar__label">Industry</span>
-                <div className="aps-pills">
-                  {ALL_INDUSTRIES.map((ind) => (
-                    <button
-                      key={ind}
-                      type="button"
-                      className={industries.has(ind) ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                      onClick={() => setIndustries(toggleSet(industries, ind))}
-                    >
-                      {ind}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                <div className="aps-filterbar__row">
+                  <div className="aps-filterbar__group">
+                    <span className="aps-filterbar__label">Pricing</span>
+                    <div className="aps-pills">
+                      {(['all', 'free', 'monetized', 'mixed'] as PricingFilter[]).map((p) => (
+                        <button
+                          key={p}
+                          type="button"
+                          className={pricing === p ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                          onClick={() => setPricing(p)}
+                        >
+                          {p === 'all' ? 'All' : p === 'free' ? 'Free' : p === 'mixed' ? 'Mixed' : (
+                            <span className="aps-pill-dollar-wrap">
+                              Monetized <span className="aps-dollar" title="Usage costs may apply">$</span>
+                            </span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-              <div className="aps-filterbar__group">
-                <span className="aps-filterbar__label">Capability</span>
-                <div className="aps-pills">
-                  {ALL_CAPABILITIES.map((cap) => (
-                    <button
-                      key={cap}
-                      type="button"
-                      className={capabilities.has(cap) ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                      onClick={() => setCapabilities(toggleSet(capabilities, cap))}
-                    >
-                      {cap}
-                    </button>
-                  ))}
+                  <div className="aps-filterbar__group">
+                    <span className="aps-filterbar__label">Maturity</span>
+                    <div className="aps-pills">
+                      {(['all', 'ga', 'beta', 'alpha'] as MaturityFilter[]).map((m) => (
+                        <button
+                          key={m}
+                          type="button"
+                          className={maturity === m ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                          onClick={() => setMaturity(m)}
+                        >
+                          {m === 'all' ? 'All' : m.toUpperCase()}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+
+                <div className="aps-filterbar__row">
+                  <div className="aps-filterbar__group">
+                    <span className="aps-filterbar__label">Industry</span>
+                    <div className="aps-pills">
+                      {ALL_INDUSTRIES.map((ind) => (
+                        <button
+                          key={ind}
+                          type="button"
+                          className={industries.has(ind) ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                          onClick={() => setIndustries(toggleSet(industries, ind))}
+                        >
+                          {ind}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="aps-filterbar__group">
+                    <span className="aps-filterbar__label">Capability</span>
+                    <div className="aps-pills">
+                      {ALL_CAPABILITIES.map((cap) => (
+                        <button
+                          key={cap}
+                          type="button"
+                          className={capabilities.has(cap) ? 'aps-pill aps-pill--active' : 'aps-pill'}
+                          onClick={() => setCapabilities(toggleSet(capabilities, cap))}
+                        >
+                          {cap}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </section>
 

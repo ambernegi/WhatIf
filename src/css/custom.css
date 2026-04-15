@@ -730,6 +730,25 @@ article.theme-doc-markdown {
   border-radius: 18px;
   padding-left: 1.1rem;
   padding-right: 1.1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+.aps-hero__left {
+  padding: 0.25rem 0.25rem 0.85rem;
+}
+.aps-hero__right {
+  padding: 0.25rem 0.25rem 0.85rem;
+}
+.aps-hero .aps-filterbar {
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .aps-hero {
+    grid-template-columns: 1fr;
+  }
 }
 .aps-hero__kicker {
   font-size: 0.72rem;
