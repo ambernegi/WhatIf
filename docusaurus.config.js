@@ -102,7 +102,7 @@ const config = {
       copyright: `Copyright © ${new Date().getFullYear()} Autodesk, Inc.`,
     },
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: 'dark',
       disableSwitch: false,
       respectPrefersColorScheme: true,
     },
