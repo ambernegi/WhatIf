@@ -85,21 +85,188 @@ body {
 .navbar {
   background: var(--aps-black);
   box-shadow: var(--ifm-navbar-shadow);
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.navbar__inner {
+  max-width: 1440px;
+  margin: 0 auto;
 }
 .navbar__logo img {
-  height: 26px;
+  height: 22px;
   width: auto;
   opacity: 1;
 }
+.navbar__brand {
+  gap: 0.7rem;
+}
 .navbar__link {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 650;
   color: rgba(255,255,255,0.78);
-  transition: color 0.15s;
+  padding: 0.42rem 0.7rem;
+  border-radius: 999px;
+  transition: color 0.15s, background 0.15s, transform 0.15s;
+}
+.navbar__link:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
 }
 .navbar__link:hover,
-.navbar__link--active { color: #ffffff; }
+.navbar__link--active {
+  color: #ffffff;
+}
+.navbar__link--active {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Dropdown polish */
+.dropdown__menu {
+  background: rgba(10, 14, 18, 0.98);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  padding: 0.4rem;
+  min-width: 220px;
+}
+.dropdown__link {
+  border-radius: 10px;
+  padding: 0.55rem 0.65rem;
+  font-weight: 650;
+  color: rgba(255,255,255,0.86);
+}
+.dropdown__link:hover {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+}
+
+/* ============================================================
+   Docs home (landing)
+   ============================================================ */
+.aps-docsHome {
+  padding: 0.25rem 0 0.5rem;
+}
+.aps-docsHome__hero {
+  padding: 0.25rem 0 1.2rem;
+}
+.aps-docsHome__kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aps-subtle);
+}
+.aps-docsHome__title {
+  margin: 0.4rem 0 0.25rem;
+  font-size: 2.1rem;
+  letter-spacing: -0.03em;
+}
+.aps-docsHome__desc {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--aps-body);
+}
+.aps-docsHome__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.aps-docsCard {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem 1rem 0.95rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--aps-body);
+  border: 1px solid var(--aps-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.aps-docsCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+}
+.aps-docsCard__top {
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aps-subtle);
+}
+.aps-docsCard__title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: var(--aps-ink);
+}
+.aps-docsCard__desc {
+  color: var(--aps-body);
+}
+.aps-docsCard__meta {
+  margin-top: 0.15rem;
+  font-size: 0.82rem;
+  color: var(--aps-muted);
+}
+.aps-docsCard__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
+  font-size: 0.84rem;
+  color: var(--aps-muted);
+}
+.aps-docsCard__links a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-weight: 800;
+}
+.aps-docsCard__links a:hover { text-decoration: underline; }
+.aps-docsCard__dot { opacity: 0.65; }
+
+.aps-docsHome__quick {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--aps-border);
+}
+.aps-docsHome__quickTitle {
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aps-subtle);
+  margin-bottom: 0.6rem;
+}
+.aps-docsHome__quickGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.aps-docsQuick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--aps-border);
+  background: rgba(255,255,255,0.03);
+  color: var(--aps-body);
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 0.86rem;
+}
+.aps-docsQuick:hover {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: var(--aps-ink);
+}
+
+@media (max-width: 996px) {
+  .aps-docsCard { grid-column: span 12; }
+}
 
 /* ============================================================
    Docs sidebar

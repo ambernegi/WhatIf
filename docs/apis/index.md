@@ -10,3 +10,10 @@ Browse API documentation by product:
 - [Metrics & Analytics](/docs/metrics/developer-guide/overview)
 - [Machine Translation](/docs/mt-api/developer-guide/overview)
 
+## Also included in “APIs”
+
+When we say **APIs**, we also include platform tooling that ships alongside them:
+
+- [SDKs & Samples](/docs/sdks)
+- [MCPs](/docs/mcps)
+

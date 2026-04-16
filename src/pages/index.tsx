@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import { API_CARDS, APP_CARDS, INDUSTRY_LINKS, PRODUCT_CARDS } from '../data/unified';
 import { PRODUCTS } from '../data/catalog';
 
@@ -341,7 +342,7 @@ export default function Home() {
                     <div className="aps-miniCard__media" aria-hidden="true">
                       <img
                         className="aps-miniCard__img"
-                        src={c.imageUrl}
+                        src={c.imageUrl.startsWith('http') ? c.imageUrl : useBaseUrl(c.imageUrl)}
                         alt={c.imageAlt ?? ''}
                         loading="lazy"
                         decoding="async"
@@ -371,7 +372,7 @@ export default function Home() {
                     <div className="aps-miniCard__media" aria-hidden="true">
                       <img
                         className="aps-miniCard__img"
-                        src={c.imageUrl}
+                        src={c.imageUrl.startsWith('http') ? c.imageUrl : useBaseUrl(c.imageUrl)}
                         alt={c.imageAlt ?? ''}
                         loading="lazy"
                         decoding="async"
@@ -402,7 +403,7 @@ export default function Home() {
                     <div className="aps-miniCard__media" aria-hidden="true">
                       <img
                         className="aps-miniCard__img"
-                        src={c.imageUrl}
+                        src={c.imageUrl.startsWith('http') ? c.imageUrl : useBaseUrl(c.imageUrl)}
                         alt={c.imageAlt ?? ''}
                         loading="lazy"
                         decoding="async"
