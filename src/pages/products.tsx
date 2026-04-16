@@ -1,8 +1,8 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import { INDUSTRY_LINKS, PRODUCT_CARDS } from '../data/unified';
+import { BaseUrlImg } from '../components/BaseUrlImg';
 
 export default function ProductsLanding() {
   return (
@@ -52,9 +52,9 @@ export default function ProductsLanding() {
                 <a key={p.id} className="aps-miniCard" href={p.href}>
                   {p.imageUrl && (
                     <div className="aps-miniCard__media" aria-hidden="true">
-                      <img
+                      <BaseUrlImg
                         className="aps-miniCard__img"
-                        src={p.imageUrl.startsWith('http') ? p.imageUrl : useBaseUrl(p.imageUrl)}
+                        src={p.imageUrl}
                         alt={p.imageAlt ?? ''}
                         loading="lazy"
                         decoding="async"

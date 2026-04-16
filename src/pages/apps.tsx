@@ -1,8 +1,8 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import { APP_CARDS } from '../data/unified';
+import { BaseUrlImg } from '../components/BaseUrlImg';
 
 export default function AppsLanding() {
   return (
@@ -37,9 +37,9 @@ export default function AppsLanding() {
                 <a key={a.id} className="aps-miniCard" href={a.href}>
                   {a.imageUrl && (
                     <div className="aps-miniCard__media" aria-hidden="true">
-                      <img
+                      <BaseUrlImg
                         className="aps-miniCard__img"
-                        src={a.imageUrl.startsWith('http') ? a.imageUrl : useBaseUrl(a.imageUrl)}
+                        src={a.imageUrl}
                         alt={a.imageAlt ?? ''}
                         loading="lazy"
                         decoding="async"
