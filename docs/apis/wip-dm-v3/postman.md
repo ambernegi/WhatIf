@@ -23,6 +23,10 @@ To make this fully consumable in the pipeline, add a real collection file (examp
 
 Then we can link to it directly from this page.
 
+Example link once the JSON is added:
+
+- `http://<your-site>/WhatIf/postman/wip-dm-v3.postman_collection.json`
+
 ## Collection structure (expected)
 
 ```

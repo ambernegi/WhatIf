@@ -11,6 +11,12 @@ The Data Management API (WIP DM v3) is an Autodesk Platform Services (APS) API f
 
 **Base URL:** `https://developer.api.autodesk.com/wipdata-serv`
 
+## Authentication (at a glance)
+
+- **OAuth grant**: Client credentials (`adskClientCredentials`)
+- **Scopes**: `data:read`, `data:write`
+- **Header**: `Authorization: Bearer <access_token>`
+
 ## Start here
 
 - <Link to="/docs/apis/wip-dm-v3/technical-guide">Technical guide</Link>

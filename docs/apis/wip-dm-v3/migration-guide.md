@@ -19,7 +19,7 @@ Teams currently using WIP DM v2 with API-key authentication that need to migrate
 
 ## Step 1: Register an OAuth2 application
 
-1. Go to the Autodesk developer portal
+1. Go to the APS portal: `https://aps.autodesk.com/`
 2. Create a new application (or update an existing one)
 3. Enable the **adskClientCredentials** grant type
 4. Request scopes: `data:read`, `data:write`
