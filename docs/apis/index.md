@@ -9,6 +9,7 @@ Browse Autodesk Platform Services (APS) products:
 - [Webhooks (API)](/docs/apis/webhooks)
 - [Metrics & Analytics (API)](/docs/apis/metrics)
 - [Machine Translation (API)](/docs/apis/machine-translation)
+- [Data Management API (WIP DM v3)](/docs/apis/wip-dm-v3)
 
 ## Included
 
