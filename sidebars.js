@@ -40,8 +40,8 @@ const sidebars = {
           type: 'category',
           label: 'Data Management API',
           collapsed: true,
+          link: { type: 'doc', id: 'apis/wip-dm-v3/index' },
           items: [
-            'apis/wip-dm-v3/index',
             'apis/wip-dm-v3/technical-guide',
             'apis/wip-dm-v3/migration-guide',
             'apis/wip-dm-v3/release-notes',
