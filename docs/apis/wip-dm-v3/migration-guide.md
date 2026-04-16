@@ -121,7 +121,7 @@ Replace all API-key authentication with the OAuth2 token flow described above.
 
 ## Related resources
 
-- [Technical guide](./technical-guide)
-- [Code examples](./code-examples)
-- [Changelog](./changelog)
+- [Technical guide](/docs/apis/wip-dm-v3/technical-guide)
+- [Code examples](/docs/apis/wip-dm-v3/code-examples)
+- [Changelog](/docs/apis/wip-dm-v3/changelog)
 

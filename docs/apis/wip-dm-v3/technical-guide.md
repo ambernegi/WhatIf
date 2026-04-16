@@ -52,7 +52,7 @@ Authorization: Bearer <access_token>
 
 Obtain a token via the Autodesk Authentication API using your client ID and secret with the `data:read` and `data:write` scopes.
 
-> Migration note: v3 replaces legacy API-key usage with OAuth2 client credentials. See the [Migration guide](./migration-guide).
+> Migration note: v3 replaces legacy API-key usage with OAuth2 client credentials. See the [Migration guide](/docs/apis/wip-dm-v3/migration-guide).
 
 ## API endpoints
 
@@ -165,8 +165,8 @@ All errors follow the standard Autodesk error response format:
 
 ## Related resources
 
-- [Code examples](./code-examples)
-- [Changelog](./changelog)
-- [Migration guide](./migration-guide)
-- [Postman](./postman)
+- [Code examples](/docs/apis/wip-dm-v3/code-examples)
+- [Changelog](/docs/apis/wip-dm-v3/changelog)
+- [Migration guide](/docs/apis/wip-dm-v3/migration-guide)
+- [Postman](/docs/apis/wip-dm-v3/postman)
 

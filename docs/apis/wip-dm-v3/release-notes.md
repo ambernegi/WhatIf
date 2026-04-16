@@ -29,7 +29,7 @@ Requests are routed automatically based on your project's data residency configu
 
 WIP DM v3 uses **adskClientCredentials** (service-to-service OAuth2), replacing legacy API-key authentication. This aligns with APS security and operational standards and provides better auditability and rate limit management.
 
-> Action required: API-key authentication is deprecated and will be removed in v3.1 (Q3 2026). See the [Migration guide](./migration-guide) for step-by-step instructions.
+> Action required: API-key authentication is deprecated and will be removed in v3.1 (Q3 2026). See the [Migration guide](/docs/apis/wip-dm-v3/migration-guide) for step-by-step instructions.
 
 ### New endpoints
 
@@ -66,8 +66,8 @@ A pre-release version of the API spec contained hardcoded API keys in plaintext.
 
 ## Getting started
 
-1. [Technical guide](./technical-guide) — architecture, authentication, and endpoint reference
-2. [Code examples](./code-examples) — Python, Node.js, and cURL samples
-3. [Postman](./postman) — interactive testing guidance
-4. [Migration guide](./migration-guide) — upgrade from v2 or API-key authentication
+1. [Technical guide](/docs/apis/wip-dm-v3/technical-guide) — architecture, authentication, and endpoint reference
+2. [Code examples](/docs/apis/wip-dm-v3/code-examples) — Python, Node.js, and cURL samples
+3. [Postman](/docs/apis/wip-dm-v3/postman) — interactive testing guidance
+4. [Migration guide](/docs/apis/wip-dm-v3/migration-guide) — upgrade from v2 or API-key authentication
 

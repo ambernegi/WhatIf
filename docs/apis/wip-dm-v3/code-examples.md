@@ -135,7 +135,7 @@ curl -s https://developer.api.autodesk.com/wipdata-serv/storage/v3/health
 
 ## Related resources
 
-- [Technical guide](./technical-guide)
-- [Migration guide](./migration-guide)
-- [Postman](./postman)
+- [Technical guide](/docs/apis/wip-dm-v3/technical-guide)
+- [Migration guide](/docs/apis/wip-dm-v3/migration-guide)
+- [Postman](/docs/apis/wip-dm-v3/postman)
 

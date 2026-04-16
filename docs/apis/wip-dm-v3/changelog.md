@@ -23,7 +23,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Versions use [Se
 - Health check endpoint (`GET /storage/v3/health`)
 
 ### Changed
-- Authentication migrating from API-key to OAuth2 client credentials (see [Migration guide](./migration-guide))
+- Authentication migrating from API-key to OAuth2 client credentials (see [Migration guide](/docs/apis/wip-dm-v3/migration-guide))
 - Rate limits now enforced per OAuth client instead of per API key
 - URN format standardized to `urn:adsk.wipdata:fs.*`
 

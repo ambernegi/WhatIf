@@ -39,7 +39,7 @@ WIP DM v3
 
 ## Related resources
 
-- [Technical guide](./technical-guide)
-- [Code examples](./code-examples)
-- [Migration guide](./migration-guide)
+- [Technical guide](/docs/apis/wip-dm-v3/technical-guide)
+- [Code examples](/docs/apis/wip-dm-v3/code-examples)
+- [Migration guide](/docs/apis/wip-dm-v3/migration-guide)
 
