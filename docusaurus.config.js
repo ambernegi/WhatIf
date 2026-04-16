@@ -62,17 +62,25 @@ const config = {
     navbar: {
       title: '',
       logo: {
-        alt: 'Autodesk Platform Services',
-        src: 'images/apslogo.png',
+        alt: 'Autodesk',
+        src: 'images/autodesk-logo.png',
         href: baseUrl,
       },
       items: [
-        { to: '/', label: 'Explore', position: 'left' },
-        { to: '/docs', label: 'Docs', position: 'left' },
+        { to: '/', label: 'Home', position: 'left' },
+        { to: '/products', label: 'Products', position: 'left' },
         { to: '/docs/apis', label: 'APIs', position: 'left' },
-        { to: '/docs/releases', label: 'Releases', position: 'left' },
-        { to: '/docs/sdks', label: 'SDKs & Samples', position: 'left' },
-        { href: 'https://github.com/ambernegi/WhatIf', label: 'App Store', position: 'left' },
+        { to: '/apps', label: 'Apps', position: 'left' },
+        {
+          type: 'dropdown',
+          label: 'Docs',
+          position: 'left',
+          items: [
+            { label: 'Docs home', to: '/docs' },
+            { label: 'Releases', to: '/docs/releases' },
+            { label: 'SDKs & Samples', to: '/docs/sdks' },
+          ],
+        },
         {
           href: 'https://github.com/ambernegi/WhatIf',
           label: 'GitHub',
@@ -86,7 +94,7 @@ const config = {
         {
           title: 'Docs',
           items: [
-            { label: 'API Catalog', to: '/' },
+            { label: 'API Catalog', to: '/docs/apis' },
             { label: 'Getting Started', to: '/docs/design-docs/how-to-guide/getting-started' },
             { label: 'Reference', to: '/docs/design-docs/reference/auth' },
             { label: 'Machine Translation API', to: '/docs/mt-api/developer-guide/overview' },

@@ -1,18 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import {
-  ALL_CAPABILITIES,
-  ALL_INDUSTRIES,
-  PRODUCTS,
-  SOLUTIONS,
-  type Maturity,
-  type Pricing as ProductPricing,
-} from '../data/catalog';
+import { API_CARDS, APP_CARDS, INDUSTRY_LINKS, PRODUCT_CARDS } from '../data/unified';
+import { PRODUCTS } from '../data/catalog';
 
-type ActiveTab = 'products' | 'solutions';
-type PricingFilter = 'all' | ProductPricing;
-type MaturityFilter = 'all' | Maturity;
+const safeTrim = (v: unknown): string => (typeof v === 'string' ? v.trim() : '');
 
 const DocIcon = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -46,73 +38,24 @@ const ICONS_BY_PRODUCT_ID: Record<string, React.ReactNode> = {
 };
 
 export default function Home() {
-  const [tab, setTab] = useState<ActiveTab>('products');
   const [search, setSearch] = useState('');
-  const [pricing, setPricing] = useState<PricingFilter>('all');
-  const [maturity, setMaturity] = useState<MaturityFilter>('all');
   const [industries, setIndustries] = useState<Set<string>>(new Set());
-  const [capabilities, setCapabilities] = useState<Set<string>>(new Set());
+  const [productFilters, setProductFilters] = useState<Set<string>>(new Set());
+  const [apiFilters, setApiFilters] = useState<Set<string>>(new Set());
+  const hasQuery = safeTrim(search) !== '';
 
-  const toggleSet = (set: Set<string>, value: string): Set<string> => {
+  const clearAll = () => {
+    setSearch('');
+    setIndustries(new Set());
+    setProductFilters(new Set());
+    setApiFilters(new Set());
+  };
+
+  const toggleSet = <T extends string>(set: Set<T>, value: T): Set<T> => {
     const next = new Set(set);
     next.has(value) ? next.delete(value) : next.add(value);
     return next;
   };
-
-  const hasFilters =
-    pricing !== 'all' ||
-    maturity !== 'all' ||
-    industries.size > 0 ||
-    capabilities.size > 0 ||
-    search.trim() !== '';
-
-  const clearFilters = () => {
-    setSearch('');
-    setPricing('all');
-    setMaturity('all');
-    setIndustries(new Set());
-    setCapabilities(new Set());
-  };
-
-  const filteredProducts = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return PRODUCTS.filter((product) => {
-      if (pricing !== 'all' && product.pricing !== pricing) return false;
-      if (maturity !== 'all' && product.maturity !== maturity) return false;
-      if (industries.size > 0 && !product.industries.some((i) => industries.has(i))) return false;
-      if (capabilities.size > 0 && !product.capabilities.some((c) => capabilities.has(c)))
-        return false;
-      if (q && !product.name.toLowerCase().includes(q) && !product.summary.toLowerCase().includes(q))
-        return false;
-      return true;
-    });
-  }, [search, pricing, maturity, industries, capabilities]);
-
-  const filteredSolutions = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    const productById = new Map(PRODUCTS.map((p) => [p.id, p] as const));
-    return SOLUTIONS.filter((solution) => {
-      if (q && !solution.name.toLowerCase().includes(q) && !solution.summary.toLowerCase().includes(q))
-        return false;
-      if (industries.size === 0 && capabilities.size === 0 && maturity === 'all' && pricing === 'all')
-        return true;
-
-      // Derive solution attributes from the products it uses.
-      const products = solution.usesProducts
-        .map((id) => productById.get(id))
-        .filter((p): p is (typeof PRODUCTS)[number] => Boolean(p));
-      if (products.length === 0) return false;
-
-      if (pricing !== 'all' && !products.some((p) => p.pricing === pricing)) return false;
-      if (maturity !== 'all' && !products.some((p) => p.maturity === maturity)) return false;
-      if (industries.size > 0 && !products.some((p) => p.industries.some((i) => industries.has(i))))
-        return false;
-      if (capabilities.size > 0 && !products.some((p) => p.capabilities.some((c) => capabilities.has(c))))
-        return false;
-
-      return true;
-    });
-  }, [search, pricing, maturity, industries, capabilities]);
 
   const featuredProducts = useMemo(() => {
     return [...PRODUCTS]
@@ -125,16 +68,82 @@ export default function Home() {
     return PRODUCTS.filter((p) => p.maturity !== 'ga').slice(0, 4);
   }, []);
 
+  const filteredDirectory = useMemo(() => {
+    const q = safeTrim(search).toLowerCase();
+
+    const hasIndustry = industries.size > 0;
+    const industryKeywordsByLabel: Record<string, string[]> = {
+      AEC: ['aec', 'bim'],
+      'Design & Manufacturing': ['manufacturing', 'design & drafting'],
+      'Media & Entertainment': ['media', 'entertainment'],
+    };
+    const selectedIndustryKeywords = new Set(
+      [...industries]
+        .flatMap((label) => industryKeywordsByLabel[label] || [])
+        .map((s) => s.toLowerCase()),
+    );
+
+    const matchesQuery = (title: string, summary: string, tags?: string[]) => {
+      if (!q) return true;
+      const hay = `${title} ${summary} ${(tags || []).join(' ')}`.toLowerCase();
+      return hay.includes(q);
+    };
+
+    const matchesIndustry = (tags?: string[]) => {
+      if (!hasIndustry) return true;
+      const tl = (tags || []).map((t) => t.toLowerCase());
+      for (const k of selectedIndustryKeywords) {
+        if (tl.some((t) => t.includes(k))) return true;
+      }
+      return false;
+    };
+
+    const matchesSelectedProduct = (title: string, tags?: string[]) => {
+      if (productFilters.size === 0) return true;
+      const titleL = title.toLowerCase();
+      const tl = (tags || []).map((t) => t.toLowerCase());
+      for (const p of productFilters) {
+        const pl = p.toLowerCase();
+        if (titleL.includes(pl)) return true;
+        if (tl.some((t) => t.includes(pl) || pl.includes(t))) return true;
+      }
+      return false;
+    };
+
+    const matchesSelectedApi = (title: string) => {
+      if (apiFilters.size === 0) return true;
+      const titleL = title.toLowerCase();
+      for (const a of apiFilters) {
+        if (titleL.includes(a.toLowerCase())) return true;
+      }
+      return false;
+    };
+
+    const products = PRODUCT_CARDS.filter(
+      (c) => matchesIndustry(c.tags) && matchesSelectedProduct(c.title, c.tags) && matchesQuery(c.title, c.summary, c.tags),
+    );
+    const apis = API_CARDS.filter(
+      (c) => matchesIndustry(c.tags) && matchesSelectedApi(c.title) && matchesQuery(c.title, c.summary, c.tags),
+    );
+    const apps = APP_CARDS.filter((c) => {
+      const matchesProducts =
+        productFilters.size === 0 ? true : (c.tags || []).some((t) => productFilters.has(t));
+      return matchesProducts && matchesQuery(c.title, c.summary, c.tags);
+    });
+
+    return { products, apis, apps };
+  }, [apiFilters, industries, productFilters, search]);
+
   return (
-    <Layout title="Explore" description="Explore Autodesk products and solution journeys">
+    <Layout title="Explore" description="Discover Autodesk products, APIs, and apps">
       <div className="aps-landing">
         <main className="aps-landing__main">
           <section className="aps-hero">
             <div className="aps-hero__left">
-              <div className="aps-hero__kicker">Autodesk Platform Services</div>
-              <h1 className="aps-hero__title">Explore products and solution journeys.</h1>
+              <div className="aps-hero__kicker">Autodesk</div>
+              <h1 className="aps-hero__title">Explore products, APIs, and apps.</h1>
               <p className="aps-hero__desc">
-                Browse by industry and capability, then dive into docs, SDKs & samples, and releases.
+                A unified entry point to discover Autodesk software, developer APIs, and marketplace apps — in one place.
               </p>
               <div className="aps-hero__ctaRow">
                 <Link className="aps-btn aps-btn--primary" to="/docs">
@@ -143,6 +152,53 @@ export default function Home() {
                 <Link className="aps-btn" to="/docs/releases">
                   See newest releases
                 </Link>
+              </div>
+
+              <div className="aps-seg">
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/products">Products</Link>
+                  </div>
+                  <div className="aps-seg__desc">Discover Autodesk flagship software.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="Product shortcuts">
+                    {PRODUCT_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/products">View all products</Link>
+                  </div>
+                </div>
+
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/docs/apis">APIs</Link>
+                  </div>
+                  <div className="aps-seg__desc">Build on Autodesk Platform Services.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="API shortcuts">
+                    {API_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/docs/apis">View all APIs</Link>
+                  </div>
+                </div>
+
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/apps">Apps</Link>
+                  </div>
+                  <div className="aps-seg__desc">Extend products via the App Store.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="App shortcuts">
+                    {APP_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/apps">View all apps</Link>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -158,7 +214,7 @@ export default function Home() {
                       <input
                         className="aps-search"
                         type="search"
-                        placeholder="Search products and solutions…"
+                        placeholder="Search products, APIs, and apps…"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         aria-label="Search"
@@ -167,24 +223,8 @@ export default function Home() {
                   </div>
 
                   <div className="aps-filterbar__actions">
-                    <div className="aps-pills">
-                      <button
-                        type="button"
-                        className={tab === 'products' ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                        onClick={() => setTab('products')}
-                      >
-                        Products
-                      </button>
-                      <button
-                        type="button"
-                        className={tab === 'solutions' ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                        onClick={() => setTab('solutions')}
-                      >
-                        Solutions
-                      </button>
-                    </div>
-                    {hasFilters && (
-                      <button type="button" className="aps-clear-btn" onClick={clearFilters}>
+                    {(hasQuery || industries.size > 0 || productFilters.size > 0 || apiFilters.size > 0) && (
+                      <button type="button" className="aps-clear-btn" onClick={clearAll}>
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                           <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                         </svg>
@@ -195,77 +235,188 @@ export default function Home() {
                 </div>
 
                 <div className="aps-filterbar__row">
-                  <div className="aps-filterbar__group">
-                    <span className="aps-filterbar__label">Pricing</span>
-                    <div className="aps-pills">
-                      {(['all', 'free', 'monetized', 'mixed'] as PricingFilter[]).map((p) => (
+                  <div className="aps-paramFilters">
+                    <details className="aps-param">
+                      <summary className="aps-param__summary">
+                        Industry
+                        <span className="aps-param__value">
+                          {industries.size === 0 ? 'Any' : `${industries.size} selected`}
+                        </span>
+                      </summary>
+                      <div className="aps-param__panel" role="group" aria-label="Industry filter">
+                        {INDUSTRY_LINKS.map((i) => (
+                          <label key={i.id} className="aps-param__option">
+                            <input
+                              type="checkbox"
+                              checked={industries.has(i.label)}
+                              onChange={() => setIndustries(toggleSet(industries, i.label))}
+                            />
+                            <span className="aps-param__optionLabel">{i.label}</span>
+                          </label>
+                        ))}
                         <button
-                          key={p}
                           type="button"
-                          className={pricing === p ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                          onClick={() => setPricing(p)}
+                          className="aps-param__reset"
+                          onClick={() => setIndustries(new Set())}
                         >
-                          {p === 'all' ? 'All' : p === 'free' ? 'Free' : p === 'mixed' ? 'Mixed' : (
-                            <span className="aps-pill-dollar-wrap">
-                              Monetized <span className="aps-dollar" title="Usage costs may apply">$</span>
-                            </span>
-                          )}
+                          Reset industry
                         </button>
-                      ))}
-                    </div>
-                  </div>
+                      </div>
+                    </details>
 
-                  <div className="aps-filterbar__group">
-                    <span className="aps-filterbar__label">Maturity</span>
-                    <div className="aps-pills">
-                      {(['all', 'ga', 'beta', 'alpha'] as MaturityFilter[]).map((m) => (
+                    <details className="aps-param">
+                      <summary className="aps-param__summary">
+                        Product
+                        <span className="aps-param__value">
+                          {productFilters.size === 0 ? 'Any' : `${productFilters.size} selected`}
+                        </span>
+                      </summary>
+                      <div className="aps-param__panel" role="group" aria-label="Product filter">
+                        <div className="aps-param__options">
+                          {PRODUCT_CARDS.map((p) => (
+                            <label key={p.id} className="aps-param__option">
+                              <input
+                                type="checkbox"
+                                checked={productFilters.has(p.title)}
+                                onChange={() => setProductFilters(toggleSet(productFilters, p.title))}
+                              />
+                              <span className="aps-param__optionLabel">{p.title}</span>
+                            </label>
+                          ))}
+                        </div>
                         <button
-                          key={m}
                           type="button"
-                          className={maturity === m ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                          onClick={() => setMaturity(m)}
+                          className="aps-param__reset"
+                          onClick={() => setProductFilters(new Set())}
                         >
-                          {m === 'all' ? 'All' : m.toUpperCase()}
+                          Reset product
                         </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                      </div>
+                    </details>
 
-                <div className="aps-filterbar__row">
-                  <div className="aps-filterbar__group">
-                    <span className="aps-filterbar__label">Industry</span>
-                    <div className="aps-pills">
-                      {ALL_INDUSTRIES.map((ind) => (
+                    <details className="aps-param">
+                      <summary className="aps-param__summary">
+                        API
+                        <span className="aps-param__value">
+                          {apiFilters.size === 0 ? 'Any' : `${apiFilters.size} selected`}
+                        </span>
+                      </summary>
+                      <div className="aps-param__panel" role="group" aria-label="API filter">
+                        <div className="aps-param__options">
+                          {API_CARDS.map((a) => (
+                            <label key={a.id} className="aps-param__option">
+                              <input
+                                type="checkbox"
+                                checked={apiFilters.has(a.title)}
+                                onChange={() => setApiFilters(toggleSet(apiFilters, a.title))}
+                              />
+                              <span className="aps-param__optionLabel">{a.title}</span>
+                            </label>
+                          ))}
+                        </div>
                         <button
-                          key={ind}
                           type="button"
-                          className={industries.has(ind) ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                          onClick={() => setIndustries(toggleSet(industries, ind))}
+                          className="aps-param__reset"
+                          onClick={() => setApiFilters(new Set())}
                         >
-                          {ind}
+                          Reset API
                         </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="aps-filterbar__group">
-                    <span className="aps-filterbar__label">Capability</span>
-                    <div className="aps-pills">
-                      {ALL_CAPABILITIES.map((cap) => (
-                        <button
-                          key={cap}
-                          type="button"
-                          className={capabilities.has(cap) ? 'aps-pill aps-pill--active' : 'aps-pill'}
-                          onClick={() => setCapabilities(toggleSet(capabilities, cap))}
-                        >
-                          {cap}
-                        </button>
-                      ))}
-                    </div>
+                      </div>
+                    </details>
                   </div>
                 </div>
               </section>
+            </div>
+          </section>
+
+          <section className="aps-section">
+            <div className="aps-section__head">
+              <h2 className="aps-section__title">Featured products</h2>
+              <p className="aps-section__desc">A curated subset inspired by Autodesk.com.</p>
+            </div>
+            <div className="aps-miniGrid">
+              {filteredDirectory.products.map((c) => (
+                <a key={c.id} className="aps-miniCard" href={c.href}>
+                  {c.imageUrl && (
+                    <div className="aps-miniCard__media" aria-hidden="true">
+                      <img
+                        className="aps-miniCard__img"
+                        src={c.imageUrl}
+                        alt={c.imageAlt ?? ''}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
+                  <div className="aps-miniCard__top">
+                    <span className="aps-badge aps-badge--soon">Product</span>
+                  </div>
+                  <div className="aps-miniCard__title">{c.title}</div>
+                  <div className="aps-miniCard__desc">{c.summary}</div>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section className="aps-section">
+            <div className="aps-section__head">
+              <h2 className="aps-section__title">Popular APIs</h2>
+              <p className="aps-section__desc">Inspired by APS: get building fast.</p>
+            </div>
+            <div className="aps-miniGrid">
+              {filteredDirectory.apis.map((c) => (
+                <a key={c.id} className="aps-miniCard" href={c.href}>
+                  {c.imageUrl && (
+                    <div className="aps-miniCard__media" aria-hidden="true">
+                      <img
+                        className="aps-miniCard__img"
+                        src={c.imageUrl}
+                        alt={c.imageAlt ?? ''}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
+                  <div className="aps-miniCard__top">
+                    <span className="aps-badge aps-badge--soon">API</span>
+                    {c.badge && <span className="aps-badge aps-badge--beta">{c.badge}</span>}
+                  </div>
+                  <div className="aps-miniCard__title">{c.title}</div>
+                  <div className="aps-miniCard__desc">{c.summary}</div>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section className="aps-section">
+            <div className="aps-section__head">
+              <h2 className="aps-section__title">Featured apps</h2>
+              <p className="aps-section__desc">A curated subset inspired by the Autodesk App Store.</p>
+            </div>
+            <div className="aps-miniGrid">
+              {filteredDirectory.apps.map((c) => (
+                <a key={c.id} className="aps-miniCard" href={c.href}>
+                  {c.imageUrl && (
+                    <div className="aps-miniCard__media" aria-hidden="true">
+                      <img
+                        className="aps-miniCard__img"
+                        src={c.imageUrl}
+                        alt={c.imageAlt ?? ''}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  )}
+                  <div className="aps-miniCard__top">
+                    <span className="aps-badge aps-badge--soon">App</span>
+                  </div>
+                  <div className="aps-miniCard__title">{c.title}</div>
+                  <div className="aps-miniCard__desc">{c.summary}</div>
+                </a>
+              ))}
             </div>
           </section>
 
@@ -319,126 +470,47 @@ export default function Home() {
             </div>
           </section>
 
-          <header className="aps-page-header">
-            <h1 className="aps-page-title">Explore</h1>
-            <p className="aps-page-desc">
-              Start from a product or choose a solution journey, then dive into docs, SDKs, and releases.
-            </p>
-          </header>
-
-          {tab === 'products' ? (
-            filteredProducts.length === 0 ? (
-              <div className="aps-empty">
-                <p>No products match your filters.</p>
-                <button type="button" className="aps-clear-btn" onClick={clearFilters}>
-                  Clear filters
-                </button>
-              </div>
-            ) : (
-              <>
-                <p className="aps-result-count">
-                  Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
-                  {hasFilters && (
-                    <button type="button" className="aps-result-clear" onClick={clearFilters}>
-                      Clear filters
-                    </button>
-                  )}
-                </p>
-                <div className="aps-grid">
-                  {filteredProducts.map((product) => {
-                    const icon = ICONS_BY_PRODUCT_ID[product.id] ?? <DocIcon />;
-                    const cardContent = (
-                      <>
-                        <div className="aps-card-top">
-                          <span className="aps-card-icon" aria-hidden="true">{icon}</span>
-                          <div className="aps-card-badges">
-                            {product.maturity !== 'ga' && (
-                              <span className="aps-badge aps-badge--beta">{product.maturity.toUpperCase()}</span>
-                            )}
-                            {product.pricing === 'monetized' && (
-                              <span className="aps-badge aps-badge--dollar" title="Usage costs may apply">$</span>
-                            )}
-                          </div>
-                        </div>
-                        <h2 className="aps-card-title">{product.name}</h2>
-                        <p className="aps-card-desc">{product.summary}</p>
-                        <div className="aps-card-footer">
-                          <div className="aps-card-tags">
-                            {product.capabilities.map((c) => (
-                              <span key={c} className="aps-card-tag">{c}</span>
-                            ))}
-                          </div>
-                          <span className="aps-card-cta">
-                            Explore
-                            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </span>
-                        </div>
-                      </>
-                    );
-                    return (
-                      <Link key={product.id} to={product.entry.docs} className="aps-card">
-                        {cardContent}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </>
-            )
-          ) : filteredSolutions.length === 0 ? (
-            <div className="aps-empty">
-              <p>No solutions match your filters.</p>
-              <button type="button" className="aps-clear-btn" onClick={clearFilters}>
-                Clear filters
-              </button>
+          <section className="aps-section">
+            <div className="aps-section__head">
+              <h2 className="aps-section__title">Developer documentation</h2>
+              <p className="aps-section__desc">Direct entry points into the docs published by this site.</p>
             </div>
-          ) : (
-            <>
-              <p className="aps-result-count">
-                Showing {filteredSolutions.length} {filteredSolutions.length === 1 ? 'solution' : 'solutions'}
-                {hasFilters && (
-                  <button type="button" className="aps-result-clear" onClick={clearFilters}>
-                    Clear filters
-                  </button>
-                )}
-              </p>
-              <div className="aps-grid">
-                {filteredSolutions.map((solution) => {
-                  const cardContent = (
-                    <>
-                      <div className="aps-card-top">
-                        <span className="aps-card-icon" aria-hidden="true"><DocIcon /></span>
-                        <div className="aps-card-badges">
-                          <span className="aps-badge aps-badge--soon">Collection</span>
-                        </div>
+            <div className="aps-grid">
+              {PRODUCTS.map((product) => {
+                const icon = ICONS_BY_PRODUCT_ID[product.id] ?? <DocIcon />;
+                return (
+                  <Link key={product.id} to={product.entry.docs} className="aps-card">
+                    <div className="aps-card-top">
+                      <span className="aps-card-icon" aria-hidden="true">{icon}</span>
+                      <div className="aps-card-badges">
+                        {product.maturity !== 'ga' && (
+                          <span className="aps-badge aps-badge--beta">{product.maturity.toUpperCase()}</span>
+                        )}
+                        {product.pricing === 'monetized' && (
+                          <span className="aps-badge aps-badge--dollar" title="Usage costs may apply">$</span>
+                        )}
                       </div>
-                      <h2 className="aps-card-title">{solution.name}</h2>
-                      <p className="aps-card-desc">{solution.summary}</p>
-                      <div className="aps-card-footer">
-                        <div className="aps-card-tags">
-                          {solution.usesProducts.slice(0, 3).map((p) => (
-                            <span key={p} className="aps-card-tag">{p.replaceAll('-', ' ')}</span>
-                          ))}
-                        </div>
-                        <span className="aps-card-cta">
-                          Explore
-                          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
+                    </div>
+                    <h2 className="aps-card-title">{product.name}</h2>
+                    <p className="aps-card-desc">{product.summary}</p>
+                    <div className="aps-card-footer">
+                      <div className="aps-card-tags">
+                        {product.capabilities.map((c) => (
+                          <span key={c} className="aps-card-tag">{c}</span>
+                        ))}
                       </div>
-                    </>
-                  );
-                  return (
-                    <Link key={solution.id} to={solution.entry.docs} className="aps-card">
-                      {cardContent}
-                    </Link>
-                  );
-                })}
-              </div>
-            </>
-          )}
+                      <span className="aps-card-cta">
+                        Explore
+                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                          <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
         </main>
       </div>
     </Layout>
