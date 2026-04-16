@@ -12,6 +12,6 @@ title: Metrics & Analytics SDKs & samples
 
 ## Related
 
-- [Metrics & Analytics docs](/docs/products/metrics)
+- [Metrics & Analytics (API) docs](/docs/apis/metrics)
 - [Metrics & Analytics releases](/docs/releases/metrics)
 

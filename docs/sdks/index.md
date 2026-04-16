@@ -2,14 +2,14 @@
 title: SDKs & Samples
 ---
 
-SDKs, starter kits, and samples by product.
+SDKs, starter kits, and samples by API/service.
 
 ## Quick start
 
-- Start from a product hub: [Products](/docs/products)
+- Start from the API catalog: [APIs, SDKs & MCPs](/docs/apis)
 - Or browse docs first: [Docs](/docs)
 
-## By product
+## By API/service
 
 - [Design Automation](/docs/sdks/design-automation)
 - [Viewer](/docs/sdks/viewer)

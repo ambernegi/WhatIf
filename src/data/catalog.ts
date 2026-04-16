@@ -44,7 +44,7 @@ export const PRODUCTS: Product[] = [
     capabilities: ['Document Management'],
     featuredRank: 1,
     entry: {
-      docs: 'docs/products/design-automation',
+      docs: 'docs/apis/design-automation',
       sdk: 'docs/sdks/design-automation',
       releases: 'docs/releases/design-automation',
     },
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     capabilities: ['3D Visualization'],
     featuredRank: 2,
     entry: {
-      docs: 'docs/products/viewer',
+      docs: 'docs/apis/viewer',
       sdk: 'docs/sdks/viewer',
       releases: 'docs/releases/viewer',
     },
@@ -75,7 +75,7 @@ export const PRODUCTS: Product[] = [
     capabilities: ['Document Management'],
     featuredRank: 3,
     entry: {
-      docs: 'docs/products/webhooks',
+      docs: 'docs/apis/webhooks',
       sdk: 'docs/sdks/webhooks',
       releases: 'docs/releases/webhooks',
     },
@@ -89,7 +89,7 @@ export const PRODUCTS: Product[] = [
     industries: ['AEC'],
     capabilities: ['Observability'],
     entry: {
-      docs: 'docs/products/metrics',
+      docs: 'docs/apis/metrics',
       sdk: 'docs/sdks/metrics',
       releases: 'docs/releases/metrics',
     },
@@ -104,7 +104,7 @@ export const PRODUCTS: Product[] = [
     capabilities: ['Document Management'],
     featuredRank: 4,
     entry: {
-      docs: 'docs/products/machine-translation',
+      docs: 'docs/apis/machine-translation',
       sdk: 'docs/sdks/machine-translation',
       releases: 'docs/releases/machine-translation',
     },

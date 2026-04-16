@@ -14,14 +14,14 @@ export default function AppsLanding() {
               <div className="aps-hero__kicker">Autodesk App Store</div>
               <h1 className="aps-hero__title">Apps</h1>
               <p className="aps-hero__desc">
-                A curated view of featured apps — kept separate from Products and APIs, but available in one place.
+                A curated view of featured apps — kept separate from Products and APS products, but available in one place.
               </p>
               <div className="aps-hero__ctaRow">
                 <a className="aps-btn aps-btn--primary" href="https://apps.autodesk.com/">
                   Open App Store
                 </a>
                 <Link className="aps-btn" to="/docs/apis">
-                  Explore APIs
+                  Explore APS products
                 </Link>
               </div>
             </div>

@@ -12,6 +12,6 @@ title: Design Automation SDKs & samples
 
 ## Related
 
-- [Design Automation docs](/docs/products/design-automation)
+- [Design Automation (API) docs](/docs/apis/design-automation)
 - [Design Automation releases](/docs/releases/design-automation)
 

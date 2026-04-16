@@ -14,11 +14,11 @@ export default function ProductsLanding() {
               <div className="aps-hero__kicker">Autodesk</div>
               <h1 className="aps-hero__title">Products</h1>
               <p className="aps-hero__desc">
-                A curated entry point to flagship Autodesk products — with pathways into APIs and Apps.
+                A curated entry point to flagship Autodesk products — with pathways into APS products and Apps.
               </p>
               <div className="aps-hero__ctaRow">
                 <Link className="aps-btn aps-btn--primary" to="/docs/apis">
-                  Explore APIs
+                  Explore APS products
                 </Link>
                 <Link className="aps-btn" to="/apps">
                   Browse Apps

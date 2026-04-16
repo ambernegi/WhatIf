@@ -12,6 +12,6 @@ title: Machine Translation SDKs & samples
 
 ## Related
 
-- [Machine Translation docs](/docs/products/machine-translation)
+- [Machine Translation (API) docs](/docs/apis/machine-translation)
 - [Machine Translation releases](/docs/releases/machine-translation)
 

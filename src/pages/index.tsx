@@ -136,74 +136,17 @@ export default function Home() {
   }, [apiFilters, industries, productFilters, search]);
 
   return (
-    <Layout title="Explore" description="Discover Autodesk products, APIs, and apps">
+    <Layout title="Explore" description="Discover Autodesk products, APS products, and apps">
       <div className="aps-landing">
         <main className="aps-landing__main">
           <section className="aps-hero">
             <div className="aps-hero__left">
               <div className="aps-hero__kicker">Autodesk</div>
-              <h1 className="aps-hero__title">Explore products, APIs, and apps.</h1>
+              <h1 className="aps-hero__title">Explore products, APS products, and apps.</h1>
               <p className="aps-hero__desc">
-                A unified entry point to discover Autodesk software, developer APIs, and marketplace apps — in one place.
+                A unified entry point to discover Autodesk software, APS products, and marketplace apps — in one place.
               </p>
-              <div className="aps-hero__ctaRow">
-                <Link className="aps-btn aps-btn--primary" to="/docs">
-                  Get started
-                </Link>
-                <Link className="aps-btn" to="/docs/releases">
-                  See newest releases
-                </Link>
-              </div>
 
-              <div className="aps-seg">
-                <div className="aps-seg__card aps-seg__card--expandable">
-                  <div className="aps-seg__top">
-                    <Link className="aps-seg__label" to="/products">Products</Link>
-                  </div>
-                  <div className="aps-seg__desc">Discover Autodesk flagship software.</div>
-                  <div className="aps-seg__panel" role="group" aria-label="Product shortcuts">
-                    {PRODUCT_CARDS.map((c) => (
-                      <a key={c.id} className="aps-seg__link" href={c.href}>
-                        {c.title}
-                      </a>
-                    ))}
-                    <Link className="aps-seg__more" to="/products">View all products</Link>
-                  </div>
-                </div>
-
-                <div className="aps-seg__card aps-seg__card--expandable">
-                  <div className="aps-seg__top">
-                    <Link className="aps-seg__label" to="/docs/apis">APIs</Link>
-                  </div>
-                  <div className="aps-seg__desc">Build on Autodesk Platform Services.</div>
-                  <div className="aps-seg__panel" role="group" aria-label="API shortcuts">
-                    {API_CARDS.map((c) => (
-                      <a key={c.id} className="aps-seg__link" href={c.href}>
-                        {c.title}
-                      </a>
-                    ))}
-                    <Link className="aps-seg__more" to="/docs/apis">View all APIs</Link>
-                  </div>
-                </div>
-
-                <div className="aps-seg__card aps-seg__card--expandable">
-                  <div className="aps-seg__top">
-                    <Link className="aps-seg__label" to="/apps">Apps</Link>
-                  </div>
-                  <div className="aps-seg__desc">Extend products via the App Store.</div>
-                  <div className="aps-seg__panel" role="group" aria-label="App shortcuts">
-                    {APP_CARDS.map((c) => (
-                      <a key={c.id} className="aps-seg__link" href={c.href}>
-                        {c.title}
-                      </a>
-                    ))}
-                    <Link className="aps-seg__more" to="/apps">View all apps</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="aps-hero__right">
               <section className="aps-filterbar">
                 <div className="aps-filterbar__row">
                   <div className="aps-filterbar__search">
@@ -215,7 +158,7 @@ export default function Home() {
                       <input
                         className="aps-search"
                         type="search"
-                        placeholder="Search products, APIs, and apps…"
+                        placeholder="Search products, APS products, and apps…"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         aria-label="Search"
@@ -297,12 +240,12 @@ export default function Home() {
 
                     <details className="aps-param">
                       <summary className="aps-param__summary">
-                        API
+                        APS product
                         <span className="aps-param__value">
                           {apiFilters.size === 0 ? 'Any' : `${apiFilters.size} selected`}
                         </span>
                       </summary>
-                      <div className="aps-param__panel" role="group" aria-label="API filter">
+                      <div className="aps-param__panel" role="group" aria-label="APS product filter">
                         <div className="aps-param__options">
                           {API_CARDS.map((a) => (
                             <label key={a.id} className="aps-param__option">
@@ -320,13 +263,62 @@ export default function Home() {
                           className="aps-param__reset"
                           onClick={() => setApiFilters(new Set())}
                         >
-                          Reset API
+                          Reset APS products
                         </button>
                       </div>
                     </details>
                   </div>
                 </div>
               </section>
+            </div>
+
+            <div className="aps-hero__right">
+              <div className="aps-seg">
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/products">Products</Link>
+                  </div>
+                  <div className="aps-seg__desc">Discover Autodesk flagship software.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="Product shortcuts">
+                    {PRODUCT_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/products">View all products</Link>
+                  </div>
+                </div>
+
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/docs/apis">APS products</Link>
+                  </div>
+                  <div className="aps-seg__desc">Build on Autodesk Platform Services.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="APS product shortcuts">
+                    {API_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/docs/apis">View all APS products</Link>
+                  </div>
+                </div>
+
+                <div className="aps-seg__card aps-seg__card--expandable">
+                  <div className="aps-seg__top">
+                    <Link className="aps-seg__label" to="/apps">Apps</Link>
+                  </div>
+                  <div className="aps-seg__desc">Extend products via the App Store.</div>
+                  <div className="aps-seg__panel" role="group" aria-label="App shortcuts">
+                    {APP_CARDS.map((c) => (
+                      <a key={c.id} className="aps-seg__link" href={c.href}>
+                        {c.title}
+                      </a>
+                    ))}
+                    <Link className="aps-seg__more" to="/apps">View all apps</Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -362,7 +354,7 @@ export default function Home() {
 
           <section className="aps-section">
             <div className="aps-section__head">
-              <h2 className="aps-section__title">Popular APIs</h2>
+              <h2 className="aps-section__title">Featured APS products</h2>
               <p className="aps-section__desc">Inspired by APS: get building fast.</p>
             </div>
             <div className="aps-miniGrid">
@@ -381,7 +373,7 @@ export default function Home() {
                     </div>
                   )}
                   <div className="aps-miniCard__top">
-                    <span className="aps-badge aps-badge--soon">API</span>
+                    <span className="aps-badge aps-badge--soon">APS</span>
                     {c.badge && <span className="aps-badge aps-badge--beta">{c.badge}</span>}
                   </div>
                   <div className="aps-miniCard__title">{c.title}</div>
@@ -418,98 +410,6 @@ export default function Home() {
                   <div className="aps-miniCard__desc">{c.summary}</div>
                 </a>
               ))}
-            </div>
-          </section>
-
-          <section className="aps-section">
-            <div className="aps-section__head">
-              <h2 className="aps-section__title">Trending</h2>
-              <p className="aps-section__desc">Be an early adopter of the newest releases.</p>
-            </div>
-            <div className="aps-miniGrid">
-              {trendingProducts.length === 0 ? (
-                <div className="aps-mutedNote">No trending items right now.</div>
-              ) : (
-                trendingProducts.map((product) => (
-                  <Link key={product.id} to={product.entry.docs} className="aps-miniCard">
-                    <div className="aps-miniCard__top">
-                      <span className="aps-card-icon" aria-hidden="true">
-                        {ICONS_BY_PRODUCT_ID[product.id] ?? <DocIcon />}
-                      </span>
-                      <span className="aps-badge aps-badge--beta">{product.maturity.toUpperCase()}</span>
-                    </div>
-                    <div className="aps-miniCard__title">{product.name}</div>
-                    <div className="aps-miniCard__desc">{product.summary}</div>
-                  </Link>
-                ))
-              )}
-            </div>
-          </section>
-
-          <section className="aps-section">
-            <div className="aps-section__head">
-              <h2 className="aps-section__title">Start building today</h2>
-              <p className="aps-section__desc">Our most popular products and APIs.</p>
-            </div>
-            <div className="aps-miniGrid">
-              {featuredProducts.map((product) => (
-                <Link key={product.id} to={product.entry.docs} className="aps-miniCard">
-                  <div className="aps-miniCard__top">
-                    <span className="aps-card-icon" aria-hidden="true">
-                      {ICONS_BY_PRODUCT_ID[product.id] ?? <DocIcon />}
-                    </span>
-                    {product.pricing === 'monetized' && (
-                      <span className="aps-badge aps-badge--dollar" title="Usage costs may apply">
-                        $
-                      </span>
-                    )}
-                  </div>
-                  <div className="aps-miniCard__title">{product.name}</div>
-                  <div className="aps-miniCard__desc">{product.summary}</div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          <section className="aps-section">
-            <div className="aps-section__head">
-              <h2 className="aps-section__title">Developer documentation</h2>
-              <p className="aps-section__desc">Direct entry points into the docs published by this site.</p>
-            </div>
-            <div className="aps-grid">
-              {PRODUCTS.map((product) => {
-                const icon = ICONS_BY_PRODUCT_ID[product.id] ?? <DocIcon />;
-                return (
-                  <Link key={product.id} to={product.entry.docs} className="aps-card">
-                    <div className="aps-card-top">
-                      <span className="aps-card-icon" aria-hidden="true">{icon}</span>
-                      <div className="aps-card-badges">
-                        {product.maturity !== 'ga' && (
-                          <span className="aps-badge aps-badge--beta">{product.maturity.toUpperCase()}</span>
-                        )}
-                        {product.pricing === 'monetized' && (
-                          <span className="aps-badge aps-badge--dollar" title="Usage costs may apply">$</span>
-                        )}
-                      </div>
-                    </div>
-                    <h2 className="aps-card-title">{product.name}</h2>
-                    <p className="aps-card-desc">{product.summary}</p>
-                    <div className="aps-card-footer">
-                      <div className="aps-card-tags">
-                        {product.capabilities.map((c) => (
-                          <span key={c} className="aps-card-tag">{c}</span>
-                        ))}
-                      </div>
-                      <span className="aps-card-cta">
-                        Explore
-                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                          <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
             </div>
           </section>
         </main>

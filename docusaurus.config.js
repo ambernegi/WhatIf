@@ -69,7 +69,7 @@ const config = {
       items: [
         { to: '/', label: 'Home', position: 'left' },
         { to: '/products', label: 'Products', position: 'left' },
-        { to: '/docs/apis', label: 'APIs', position: 'left' },
+        { to: '/docs/apis', label: 'APS products', position: 'left' },
         { to: '/apps', label: 'Apps', position: 'left' },
         {
           type: 'dropdown',
@@ -94,7 +94,7 @@ const config = {
         {
           title: 'Docs',
           items: [
-            { label: 'API Catalog', to: '/docs/apis' },
+            { label: 'APS products', to: '/docs/apis' },
             { label: 'Getting Started', to: '/docs/design-docs/how-to-guide/getting-started' },
             { label: 'Reference', to: '/docs/design-docs/reference/auth' },
             { label: 'Machine Translation API', to: '/docs/mt-api/developer-guide/overview' },
@@ -123,7 +123,14 @@ const config = {
       '@docusaurus/plugin-client-redirects',
       {
         // Keep legacy and new hubs stable; add migrations here as we reorganize folders.
-        redirects: [],
+        redirects: [
+          // APIs were previously misclassified under /docs/products/*
+          { from: '/docs/products/design-automation', to: '/docs/apis/design-automation' },
+          { from: '/docs/products/viewer', to: '/docs/apis/viewer' },
+          { from: '/docs/products/webhooks', to: '/docs/apis/webhooks' },
+          { from: '/docs/products/metrics', to: '/docs/apis/metrics' },
+          { from: '/docs/products/machine-translation', to: '/docs/apis/machine-translation' },
+        ],
       },
     ],
   ],

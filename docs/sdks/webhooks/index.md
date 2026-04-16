@@ -12,6 +12,6 @@ title: Webhooks SDKs & samples
 
 ## Related
 
-- [Webhooks docs](/docs/products/webhooks)
+- [Webhooks (API) docs](/docs/apis/webhooks)
 - [Webhooks releases](/docs/releases/webhooks)
 

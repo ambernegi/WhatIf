@@ -9,11 +9,10 @@ const sidebars = {
       collapsed: false,
       items: [
         'products/index',
-        'products/design-automation/index',
-        'products/viewer/index',
-        'products/webhooks/index',
-        'products/metrics/index',
-        'products/machine-translation/index',
+        'products/autocad/index',
+        'products/revit/index',
+        'products/fusion/index',
+        'products/forma/index',
         {
           type: 'category',
           label: 'Solutions',
@@ -28,10 +27,15 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'APIs, SDKs & MCPs',
+      label: 'APS products',
       collapsed: false,
       items: [
         'apis/index',
+        'apis/design-automation/index',
+        'apis/viewer/index',
+        'apis/webhooks/index',
+        'apis/metrics/index',
+        'apis/machine-translation/index',
         'sdks/index',
         'mcps/index',
       ],

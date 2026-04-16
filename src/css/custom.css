@@ -1096,6 +1096,17 @@ article.theme-doc-markdown {
   gap: 0.65rem;
   margin-top: 1.25rem;
 }
+.aps-hero__left .aps-filterbar {
+  margin-top: 1.05rem;
+}
+.aps-hero__right .aps-seg {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
+  gap: 0.55rem;
+}
+.aps-hero__right .aps-seg__card {
+  padding: 0.75rem 0.8rem;
+}
 .aps-seg__card {
   border: 1px solid var(--aps-border);
   border-radius: 14px;

@@ -2,11 +2,14 @@
 title: Products
 ---
 
-Browse product documentation:
+Browse Autodesk product documentation:
 
-- [Design Automation](./design-automation)
-- [Viewer](./viewer)
-- [Webhooks](./webhooks)
-- [Metrics & Analytics](./metrics)
-- [Machine Translation](./machine-translation)
+- [AutoCAD](./autocad)
+- [Revit](./revit)
+- [Fusion](./fusion)
+- [Autodesk Forma](./forma)
+
+If you’re looking for Autodesk Platform Services (APS) developer documentation (APIs/SDKs/MCPs), see:
+
+- [APS products](/docs/apis)
 

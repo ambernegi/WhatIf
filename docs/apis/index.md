@@ -1,18 +1,18 @@
 ---
-title: APIs
+title: APS products
 ---
 
-Browse API documentation by product:
+Browse Autodesk Platform Services (APS) products:
 
-- [Design Automation](/docs/design-docs/developer-guide/overview)
-- [Viewer](/docs/viewer-api/developer-guide/overview)
-- [Webhooks](/docs/webhooks/developer-guide/overview)
-- [Metrics & Analytics](/docs/metrics/developer-guide/overview)
-- [Machine Translation](/docs/mt-api/developer-guide/overview)
+- [Design Automation (API)](/docs/apis/design-automation)
+- [Viewer (API)](/docs/apis/viewer)
+- [Webhooks (API)](/docs/apis/webhooks)
+- [Metrics & Analytics (API)](/docs/apis/metrics)
+- [Machine Translation (API)](/docs/apis/machine-translation)
 
-## Also included in “APIs”
+## Included
 
-When we say **APIs**, we also include platform tooling that ships alongside them:
+APS products include platform tooling that ships alongside APIs:
 
 - [SDKs & Samples](/docs/sdks)
 - [MCPs](/docs/mcps)

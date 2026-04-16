@@ -10,7 +10,7 @@ import Link from '@docusaurus/Link';
     <div className="aps-docsHome__kicker">Autodesk</div>
     <h1 className="aps-docsHome__title">Documentation</h1>
     <p className="aps-docsHome__desc">
-      Choose a track to browse product docs, developer APIs, SDKs/MCPs, and anything published by this site.
+      Choose a track to browse product docs, APS products (APIs/SDKs/MCPs), and anything published by this site.
     </p>
   </div>
 
@@ -21,15 +21,16 @@ import Link from '@docusaurus/Link';
       <div className="aps-docsCard__desc">
         Feature guides, concepts, and release notes — organized by product.
       </div>
-      <div className="aps-docsCard__meta">Design Automation · Viewer · Webhooks · Metrics · Machine Translation</div>
+      <div className="aps-docsCard__meta">AutoCAD · Revit · Fusion · Autodesk Forma</div>
     </Link>
 
     <Link className="aps-docsCard aps-docsCard--apis" to="/docs/apis">
-      <div className="aps-docsCard__top">APIs</div>
-      <div className="aps-docsCard__title">APIs, SDKs & MCPs</div>
+      <div className="aps-docsCard__top">APS products</div>
+      <div className="aps-docsCard__title">APS products</div>
       <div className="aps-docsCard__desc">
-        Developer surfaces that make up the platform: REST APIs, SDKs & samples, and MCPs.
+        Platform surfaces that make up APS: APIs, SDKs & samples, and MCPs.
       </div>
+      <div className="aps-docsCard__meta">Design Automation · Viewer · Webhooks · Metrics · Machine Translation</div>
       <div className="aps-docsCard__links" aria-label="API-related hubs">
         <span>Browse:</span>
         <Link to="/docs/apis">API catalog</Link>
@@ -55,7 +56,7 @@ import Link from '@docusaurus/Link';
     <div className="aps-docsHome__quickGrid">
       <Link to="/docs/releases" className="aps-docsQuick">Releases</Link>
       <Link to="/docs/sdks" className="aps-docsQuick">SDKs & Samples</Link>
-      <Link to="/docs/apis" className="aps-docsQuick">API Catalog</Link>
+      <Link to="/docs/apis" className="aps-docsQuick">APS products</Link>
       <Link to="/docs/mcps" className="aps-docsQuick">MCPs</Link>
     </div>
   </div>

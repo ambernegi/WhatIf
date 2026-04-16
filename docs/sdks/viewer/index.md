@@ -12,6 +12,6 @@ title: Viewer SDKs & samples
 
 ## Related
 
-- [Viewer docs](/docs/products/viewer)
+- [Viewer (API) docs](/docs/apis/viewer)
 - [Viewer releases](/docs/releases/viewer)
 
